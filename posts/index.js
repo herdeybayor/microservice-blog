@@ -8,6 +8,12 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+app.use((req, _, next) => {
+  const reqTimestamp = new Date().toISOString();
+  console.log(`${reqTimestamp} - ${req.method} ${req.url}`);
+  next();
+});
+
 const posts = {};
 
 app.get("/posts", (req, res) => {
@@ -41,5 +47,6 @@ app.post("/events", (req, res) => {
 });
 
 app.listen(4000, () => {
+  console.log("v20")
   console.log("Listening on 4000");
 });
