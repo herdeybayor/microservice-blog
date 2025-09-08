@@ -5,6 +5,12 @@ const axios = require("axios");
 const app = express();
 app.use(bodyParser.json());
 
+app.use((req, _, next) => {
+  const reqTimestamp = new Date().toISOString();
+  console.log(`${reqTimestamp} - ${req.method} ${req.url}`);
+  next();
+});
+
 const events = [];
 
 app.post("/events", (req, res) => {
